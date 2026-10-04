@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#17130f">
+<title>测一测｜你的古代专属信物是什么</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    serif;
+    background:#17130f;
+    color:#f4ead7;
+    overflow-x:hidden;
+}
+
+button,input{
+    font:inherit;
+}
+
+button{
+    border:0;
+    outline:0;
+    cursor:pointer;
+}
+
+.page{
+    min-height:100vh;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+}
+
+.page::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.16;
+    background-image:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.16) 0 1px,transparent 1px),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.1) 0 1px,transparent 1px);
+    background-size:70px 70px,100px 100px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= 密码页 ================= */
+
+#lockPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px 22px;
+    background:
+    radial-gradient(circle at 50% 25%,rgba(173,126,64,.18),transparent 35%),
+    linear-gradient(145deg,#120f0c,#211912 55%,#100e0c);
+}
+
+.lock-decoration{
+    position:absolute;
+    width:310px;
+    height:310px;
+    border:1px solid rgba(213,174,108,.16);
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+.lock-decoration::before,
+.lock-decoration::after{
+    content:"";
+    position:absolute;
+    inset:24px;
+    border:1px solid rgba(213,174,108,.09);
+    border-radius:50%;
+}
+
+.lock-box{
+    width:100%;
+    max-width:390px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+.small-title{
+    color:#bda47d;
+    font-size:11px;
+    letter-spacing:5px;
+    margin-bottom:24px;
+}
+
+.lock-box h1{
+    font-family:serif;
+    font-weight:400;
+    font-size:31px;
+    letter-spacing:3px;
+    line-height:1.45;
+    margin-bottom:13px;
+}
+
+.lock-sub{
+    color:#9c9181;
+    font-size:13px;
+    line-height:1.9;
+    margin-bottom:38px;
+}
+
+.code-line{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:9px;
+    margin-bottom:25px;
+}
+
+.code-line input{
+    width:100%;
+    height:53px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(213,174,108,.25);
+    border-radius:8px;
+    color:#f5e9d3;
+    text-align:center;
+    font-size:20px;
+    letter-spacing:9px;
+    outline:none;
+}
+
+.code-line input:focus{
+    border-color:#b89562;
+    box-shadow:0 0 25px rgba(184,149,98,.1);
+}
+
+.enter-btn{
+    width:100%;
+    height:52px;
+    border-radius:8px;
+    background:linear-gradient(135deg,#b99a68,#8e6e42);
+    color:#17120d;
+    font-size:14px;
+    letter-spacing:4px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.enter-btn:active{
+    transform:scale(.98);
+}
+
+.error{
+    height:20px;
+    margin-top:13px;
+    color:#bd7466;
+    font-size:12px;
+}
+
+/* ================= 首页 ================= */
+
+#homePage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px 22px;
+    background:
+    radial-gradient(circle at 50% 20%,rgba(163,120,63,.2),transparent 35%),
+    linear-gradient(150deg,#16120e,#251c14 55%,#120f0c);
+}
+
+.home-box{
+    width:100%;
+    max-width:430px;
+    text-align:center;
+    position:relative;
+}
+
+.ink-circle{
+    width:190px;
+    height:190px;
+    border:1px solid rgba(208,174,112,.27);
+    border-radius:50%;
+    margin:0 auto 31px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.ink-circle::before{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border:1px solid rgba(208,174,112,.12);
+    border-radius:50%;
+}
+
+.ink-symbol{
+    font-family:serif;
+    font-size:64px;
+    color:#d5b87d;
+    font-weight:300;
+}
+
+.home-label{
+    font-size:11px;
+    letter-spacing:6px;
+    color:#bca27a;
+    margin-bottom:19px;
+}
+
+.home-box h1{
+    font-family:serif;
+    font-size:31px;
+    font-weight:400;
+    letter-spacing:2px;
+    line-height:1.5;
+}
+
+.home-box p{
+    margin:17px auto 32px;
+    max-width:310px;
+    color:#9e9383;
+    font-size:13px;
+    line-height:2;
+}
+
+.start-btn{
+    width:100%;
+    max-width:320px;
+    height:54px;
+    background:rgba(188,156,99,.12);
+    border:1px solid rgba(201,165,103,.5);
+    color:#e6d1a9;
+    border-radius:8px;
+    letter-spacing:4px;
+    font-size:14px;
+}
+
+/* ================= 测试页 ================= */
+
+#quizPage{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at 80% 0%,rgba(174,131,72,.14),transparent 35%),
+    #17130f;
+    padding:25px 18px 40px;
+}
+
+.quiz-wrap{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+}
+
+.quiz-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.quiz-small{
+    color:#9f917d;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.quiz-number{
+    color:#c8a873;
+    font-family:serif;
+    font-size:14px;
+}
+
+.progress{
+    height:2px;
+    background:rgba(255,255,255,.08);
+    margin-bottom:38px;
+    position:relative;
+}
+
+.progress-inner{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#8b693e,#d1b37b);
+    transition:.35s ease;
+}
+
+.question-label{
+    color:#b49462;
+    font-size:11px;
+    letter-spacing:4px;
+    margin-bottom:17px;
+}
+
+.question{
+    font-family:serif;
+    font-size:25px;
+    line-height:1.6;
+    font-weight:400;
+    color:#f4e8d2;
+    margin-bottom:30px;
+}
+
+.options{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.option{
+    width:100%;
+    min-height:64px;
+    padding:16px 18px;
+    border:1px solid rgba(206,176,120,.15);
+    background:rgba(255,255,255,.035);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    text-align:left;
+    color:#d8cbb7;
+    transition:.25s;
+}
+
+.option:hover{
+    border-color:rgba(206,176,120,.5);
+}
+
+.option:active{
+    transform:scale(.985);
+}
+
+.option-mark{
+    width:28px;
+    height:28px;
+    border:1px solid rgba(202,169,108,.4);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-right:13px;
+    color:#bd9d67;
+    font-size:12px;
+    flex:none;
+}
+
+.option-text{
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* ================= 结果页 ================= */
+
+#resultPage{
+    min-height:100vh;
+    padding:25px 18px 50px;
+    background:#1b1611;
+    transition:background .5s;
+}
+
+.result-wrap{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+}
+
+.result-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.result-tag{
+    font-size:10px;
+    letter-spacing:4px;
+    color:#b59a6b;
+}
+
+.restart-small{
+    color:#a8957b;
+    font-size:12px;
+    background:none;
+}
+
+.result-card{
+    border:1px solid rgba(213,179,116,.25);
+    background:rgba(255,255,255,.035);
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+}
+
+.result-head{
+    padding:42px 25px 35px;
+    text-align:center;
+    position:relative;
+    min-height:285px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.result-head::before{
+    content:"";
+    position:absolute;
+    width:190px;
+    height:190px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:50%;
+}
+
+.result-symbol{
+    font-family:serif;
+    font-size:72px;
+    line-height:1;
+    margin-bottom:22px;
+    position:relative;
+}
+
+.result-type{
+    font-size:11px;
+    letter-spacing:5px;
+    margin-bottom:12px;
+    position:relative;
+}
+
+.result-name{
+    font-family:serif;
+    font-size:31px;
+    font-weight:400;
+    letter-spacing:3px;
+    position:relative;
+}
+
+.result-body{
+    padding:28px 23px 30px;
+}
+
+.result-intro{
+    font-family:serif;
+    font-size:18px;
+    line-height:1.9;
+    margin-bottom:21px;
+}
+
+.result-text{
+    color:#b9ae9d;
+    font-size:13px;
+    line-height:2.05;
+}
+
+.detail-box{
+    margin-top:25px;
+    padding:20px;
+    border-top:1px solid rgba(213,179,116,.13);
+    border-bottom:1px solid rgba(213,179,116,.13);
+}
+
+.detail-title{
+    font-size:10px;
+    letter-spacing:3px;
+    color:#b59a6b;
+    margin-bottom:12px;
+}
+
+.detail-content{
+    color:#c9bcaa;
+    font-size:13px;
+    line-height:2;
+}
+
+.result-footer{
+    margin-top:20px;
+    text-align:center;
+    color:#7f7467;
+    font-size:11px;
+    line-height:1.8;
+}
+
+.again-btn{
+    margin-top:25px;
+    width:100%;
+    height:52px;
+    border-radius:8px;
+    background:rgba(189,155,94,.12);
+    border:1px solid rgba(189,155,94,.4);
+    color:#d4b77f;
+    letter-spacing:3px;
+}
+
+/* 不同结果主题 */
+
+.theme-jade{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(90,133,112,.25),transparent 60%),
+    linear-gradient(150deg,#151b18,#18251f);
+}
+.theme-jade .result-name,
+.theme-jade .result-symbol{
+    color:#a8c8b4;
+}
+
+.theme-fan{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(165,117,117,.25),transparent 60%),
+    linear-gradient(150deg,#211616,#291b1b);
+}
+.theme-fan .result-name,
+.theme-fan .result-symbol{
+    color:#ddb1ad;
+}
+
+.theme-ring{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(191,151,76,.28),transparent 60%),
+    linear-gradient(150deg,#201a11,#2b2113);
+}
+.theme-ring .result-name,
+.theme-ring .result-symbol{
+    color:#e0c083;
+}
+
+.theme-pendant{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(103,128,161,.25),transparent 60%),
+    linear-gradient(150deg,#14191f,#19212b);
+}
+.theme-pendant .result-name,
+.theme-pendant .result-symbol{
+    color:#b4c9e1;
+}
+
+.theme-hairpin{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(155,111,145,.26),transparent 60%),
+    linear-gradient(150deg,#1d151d,#281a26);
+}
+.theme-hairpin .result-name,
+.theme-hairpin .result-symbol{
+    color:#d0abc9;
+}
+
+.theme-bracelet{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(125,144,111,.25),transparent 60%),
+    linear-gradient(150deg,#171b14,#20281c);
+}
+.theme-bracelet .result-name,
+.theme-bracelet .result-symbol{
+    color:#b9c89e;
+}
+
+.theme-fan2{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(120,144,168,.26),transparent 60%),
+    linear-gradient(150deg,#14191e,#1b252d);
+}
+.theme-fan2 .result-name,
+.theme-fan2 .result-symbol{
+    color:#b9cedd;
+}
+
+.theme-locket{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(166,113,65,.27),transparent 60%),
+    linear-gradient(150deg,#211710,#2b1c12);
+}
+.theme-locket .result-name,
+.theme-locket .result-symbol{
+    color:#dbad76;
+}
+
+.theme-seal{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(145,82,69,.3),transparent 60%),
+    linear-gradient(150deg,#211411,#2b1814);
+}
+.theme-seal .result-name,
+.theme-seal .result-symbol{
+    color:#d49a88;
+}
+
+.theme-pearl{
+    background:
+    radial-gradient(circle at 50% 20%,rgba(177,173,153,.2),transparent 60%),
+    linear-gradient(150deg,#191817,#26231e);
+}
+.theme-pearl .result-name,
+.theme-pearl .result-symbol{
+    color:#ddd8c5;
+}
+
+@media(max-width:380px){
+    .home-box h1{
+        font-size:27px;
+    }
+
+    .question{
+        font-size:22px;
+    }
+
+    .result-name{
+        font-size:28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= 提取码 ================= -->
+
+<section id="lockPage" class="page">
+
+    <div class="lock-decoration"></div>
+
+    <div class="lock-box">
+
+        <div class="small-title">ANCIENT KEEPSAKE</div>
+
+        <h1>你的古代专属信物</h1>
+
+        <div class="lock-sub">
+            输入提取码<br>
+            开启属于你的古风小测试
+        </div>
+
+        <div class="code-line">
+            <input
+                id="codeInput"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="••••"
+            >
+        </div>
+
+        <button class="enter-btn" onclick="checkCode()">
+            开启测试
+        </button>
+
+        <div id="error" class="error"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= 首页 ================= -->
+
+<section id="homePage" class="page hidden">
+
+    <div class="home-box">
+
+        <div class="ink-circle">
+            <div class="ink-symbol">信</div>
+        </div>
+
+        <div class="home-label">A LITTLE PIECE OF ANCIENT CHINA</div>
+
+        <h1>测一测｜你的古代专属信物是什么</h1>
+
+        <p>
+            如果把你的性格、情感偏好与处事方式，
+            化作一件古风信物，
+            它会是什么？
+        </p>
+
+        <button class="start-btn" onclick="startQuiz()">
+            开始测试
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= 测试页 ================= -->
+
+<section id="quizPage" class="page hidden">
+
+    <div class="quiz-wrap">
+
+        <div class="quiz-top">
+            <div class="quiz-small">YOUR ANCIENT KEEPSAKE</div>
+            <div class="quiz-number" id="quizNumber">01 / 08</div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-inner" id="progressInner"></div>
+        </div>
+
+        <div class="question-label">QUESTION</div>
+
+        <div class="question" id="questionText"></div>
+
+        <div class="options" id="options"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= 结果页 ================= -->
+
+<section id="resultPage" class="page hidden">
+
+    <div class="result-wrap">
+
+        <div class="result-top">
+            <div class="result-tag">YOUR PERSONAL KEEPSAKE</div>
+            <button class="restart-small" onclick="restartTest()">重新开始</button>
+        </div>
+
+        <div class="result-card">
+
+            <div class="result-head" id="resultHead">
+
+                <div class="result-symbol" id="resultSymbol"></div>
+
+                <div class="result-type" id="resultType"></div>
+
+                <div class="result-name" id="resultName"></div>
+
+            </div>
+
+            <div class="result-body">
+
+                <div class="result-intro" id="resultIntro"></div>
+
+                <div class="result-text" id="resultText"></div>
+
+                <div class="detail-box">
+
+                    <div class="detail-title">
+                        信物意象
+                    </div>
+
+                    <div class="detail-content" id="resultDetail"></div>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <div class="detail-title">
+                        你的气质关键词
+                    </div>
+
+                    <div class="detail-content" id="resultKeywords"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="result-footer">
+            这不是对你的定义，只是一种有趣的性格投射。<br>
+            换一种选择，也许会看到不同的自己。
+        </div>
+
+        <button class="again-btn" onclick="restartTest()">
+            再测一次
+        </button>
+
+    </div>
+
+</section>
+
+<script>
+/* =====================================================
+   基础配置
+===================================================== */
+
+const ACCESS_CODE = "8787";
+
+let currentQuestion = 0;
+
+let scores = Array(10).fill(0);
+
+
+/* =====================================================
+   10种信物
+===================================================== */
+
+const results = [
+
+    {
+        name:"白玉佩",
+        type:"清雅 · 温润",
+        symbol:"玉",
+        theme:"theme-jade",
+        intro:"你的专属信物，是一枚温润的白玉佩。",
+        text:"你身上有一种很安静的力量。你不喜欢过分张扬，也很少为了证明自己而刻意表现。真正重要的人和事，你会认真放在心里。你看起来柔和，却并不容易被别人左右。越是熟悉你的人，越能发现你其实有很清晰的原则。",
+        detail:"玉在古代常被赋予温润、克制与君子之风的意象。它不需要过多装饰，只需贴身佩戴，便有一种安静而长久的陪伴感。",
+        keywords:"温柔、克制、稳定、细腻、重感情"
+    },
+
+    {
+        name:"团扇",
+        type:"雅致 · 从容",
+        symbol:"扇",
+        theme:"theme-fan",
+        intro:"你的专属信物，是一柄精巧的团扇。",
+        text:"你很会把情绪藏在从容之后。即使心里已经翻涌很多次，表面依旧能够保持体面。你喜欢有分寸的关系，也在意人与人之间微妙的距离。比起轰轰烈烈，你更容易被细节、气质和长期相处产生的默契打动。",
+        detail:"团扇常与清雅、含蓄、闲适的古典气质联系在一起。它不喧闹，却很容易成为一个人的风格标记。",
+        keywords:"含蓄、审美、分寸、从容、敏感"
+    },
+
+    {
+        name:"同心结",
+        type:"坚定 · 长情",
+        symbol:"结",
+        theme:"theme-ring",
+        intro:"你的专属信物，是一枚精致的同心结。",
+        text:"你对关系的态度比自己想象中更加认真。真正认定一个人之后，你不会轻易改变。你可能慢热，也可能嘴上不太会表达，但你的行动通常比语言更可靠。你很看重承诺，也希望对方能够给你同等程度的认真。",
+        detail:"结有连接、牵系与相守的意象。比起一瞬间的热烈，你更看重一段关系能不能经得住时间。",
+        keywords:"长情、专一、责任感、认真、可靠"
+    },
+
+    {
+        name:"青玉坠",
+        type:"清醒 · 坚韧",
+        symbol:"坠",
+        theme:"theme-pendant",
+        intro:"你的专属信物，是一枚青玉坠。",
+        text:"你比表面看起来更加有主见。你可以温和，可以退让，但不会无限度地委屈自己。遇到真正重要的事情，你往往比别人更清醒。你喜欢有能力、有边界感的人，也希望自己的生活始终保留选择空间。",
+        detail:"青玉色泽沉静，古人常以玉寄托品格与自持。它更像一种提醒：保持清醒，也保持自己的方向。",
+        keywords:"独立、清醒、边界感、坚韧、有主见"
+    },
+
+    {
+        name:"玉簪",
+        type:"温柔 · 细腻",
+        symbol:"簪",
+        theme:"theme-hairpin",
+        intro:"你的专属信物，是一支温润的玉簪。",
+        text:"你很容易注意到别人忽略的小细节。一句话的语气、一个停顿、一个不经意的动作，都可能被你记在心里。你其实很需要安全感，只是不一定会直接说出来。你喜欢温柔而坚定的陪伴，也容易被那些愿意认真照顾细节的人打动。",
+        detail:"玉簪贴近发间，是很私人的装饰。它不像华丽珠宝那样夺目，却有一种只有亲近的人才容易注意到的精致。",
+        keywords:"细腻、敏感、温柔、重细节、需要安全感"
+    },
+
+    {
+        name:"平安扣",
+        type:"安稳 · 治愈",
+        symbol:"扣",
+        theme:"theme-bracelet",
+        intro:"你的专属信物，是一枚圆润的平安扣。",
+        text:"你真正喜欢的生活，往往不是极端热烈，而是稳定、舒服、有回应。你不喜欢复杂的人际关系，也不喜欢反复猜测别人的态度。你会珍惜那些让你可以放松做自己的人。对你来说，最珍贵的东西往往不是昂贵，而是让人安心。",
+        detail:"圆润的形态给人完整与安稳的视觉感受。它像一句不需要说出口的祝愿：愿日子平稳，愿身边的人都好。",
+        keywords:"稳定、治愈、温和、踏实、重生活"
+    },
+
+    {
+        name:"折扇",
+        type:"洒脱 · 自在",
+        symbol:"扇",
+        theme:"theme-fan2",
+        intro:"你的专属信物，是一柄可以随手展开的折扇。",
+        text:"你身上有一种很明显的自由感。你不喜欢被过度安排，也不愿意为了迎合别人而改变自己。你可以认真，也可以玩得很开；可以深情，也可以转身去做自己的事。你真正需要的是一个尊重你空间，同时又能够与你并肩的人。",
+        detail:"折扇收起时低调，展开时自有风骨。它很适合形容那些拥有自己节奏、不喜欢被框住的人。",
+        keywords:"自由、洒脱、自我、果断、有趣"
+    },
+
+    {
+        name:"香囊",
+        type:"浪漫 · 温柔",
+        symbol:"囊",
+        theme:"theme-locket",
+        intro:"你的专属信物，是一枚藏着淡淡香气的香囊。",
+        text:"你其实很容易被氛围打动。一个特殊的纪念日、一封认真写下的信、一件只有你们知道的小物件，都可能让你记很久。你重视仪式感，但你要的并不是浮夸，而是那句‘我有把你放在心上’。你愿意付出，也希望自己的认真能够被看见。",
+        detail:"香囊贴身而藏，香气并不张扬，却会随着时间慢慢留下痕迹。它很像你表达感情的方式：细微，却长久。",
+        keywords:"浪漫、感性、仪式感、念旧、重表达"
+    },
+
+    {
+        name:"朱砂印",
+        type:"锋利 · 果敢",
+        symbol:"印",
+        theme:"theme-seal",
+        intro:"你的专属信物，是一方小巧的朱砂印。",
+        text:"你不是那种永远温吞的人。真正触碰到你的底线时，你会比很多人想象中更加果断。你知道自己想要什么，也不喜欢把选择权一直交给别人。你可以对喜欢的人很温柔，但这份温柔建立在尊重之上。一旦失去尊重，你会毫不犹豫地抽身。",
+        detail:"印章代表确认、落款与个人标记。朱砂色醒目而有力量，带着一种‘这是我的选择’的坚定感。",
+        keywords:"果断、底线、勇敢、清醒、行动力"
+    },
+
+    {
+        name:"珍珠耳珰",
+        type:"灵动 · 清透",
+        symbol:"珠",
+        theme:"theme-pearl",
+        intro:"你的专属信物，是一对小巧的珍珠耳珰。",
+        text:"你有一种轻盈而灵动的气质。你不喜欢把生活过得太沉重，哪怕遇到不顺心的事情，也会努力给自己寻找出口。你很好奇，也愿意尝试新鲜事物。感情里，你需要的不只是稳定，还需要聊天时的默契、相处时的趣味，以及彼此之间的欣赏。",
+        detail:"珍珠温润，却不会显得沉重。小巧的耳珰贴近耳侧，也有一种‘听见、理解、回应’的象征意味。",
+        keywords:"灵动、好奇、乐观、趣味、重默契"
+    }
+
+];
+
+
+/* =====================================================
+   8道题
+   每个选项对应两个信物倾向
+===================================================== */
+
+const questions = [
+
+    {
+        q:"如果有一整天完全属于自己，你最想怎么度过？",
+        options:[
+            ["找一个安静的地方看书、喝茶","0,4"],
+            ["约几个熟悉的人出去吃饭聊天","5,9"],
+            ["一个人出门走走，去没去过的地方","6,3"],
+            ["待在家里整理房间，做喜欢的小事","1,7"]
+        ]
+    },
+
+    {
+        q:"第一次认识一个人，你最容易注意到什么？",
+        options:[
+            ["说话的方式和待人的分寸","0,1"],
+            ["做事是否可靠、有担当","2,3"],
+            ["有没有趣，聊天是否舒服","6,9"],
+            ["眼神和一些很细小的动作","4,7"]
+        ]
+    },
+
+    {
+        q:"如果朋友突然遇到麻烦，你通常会怎么做？",
+        options:[
+            ["先陪着对方，把情绪安抚下来","5,4"],
+            ["直接帮对方想办法解决","3,8"],
+            ["陪着一起吐槽，然后带她出去散心","6,9"],
+            ["默默记住对方需要什么，之后再补上","0,2"]
+        ]
+    },
+
+    {
+        q:"你更喜欢哪一种相处状态？",
+        options:[
+            ["不用说太多，也能彼此理解","0,2"],
+            ["每天都有新鲜话题，永远聊不完","7,9"],
+            ["互相尊重空间，各自忙自己的事情","3,6"],
+            ["生活规律稳定，彼此有明确回应","5,4"]
+        ]
+    },
+
+    {
+        q:"如果收到一件很有心意的礼物，你最在意什么？",
+        options:[
+            ["它是不是恰好符合我的喜好","4,5"],
+            ["送礼的人有没有记得某个特别的细节","2,7"],
+            ["有没有特别的故事或者纪念意义","1,7"],
+            ["虽然简单，但能看出对方花了心思","0,8"]
+        ]
+    },
+
+    {
+        q:"遇到意见不合的时候，你通常会？",
+        options:[
+            ["先冷静下来，再慢慢说自己的想法","0,3"],
+            ["有话直接说，不喜欢一直憋着","8,6"],
+            ["如果关系重要，会主动退一步","2,5"],
+            ["看情况，如果触碰底线就不会让步","8,3"]
+        ]
+    },
+
+    {
+        q:"哪一种古风场景最容易让你心动？",
+        options:[
+            ["月下灯影，案前煮茶","0,4"],
+            ["长街夜市，人声热闹","6,9"],
+            ["山水之间，一叶轻舟","3,7"],
+            ["庭院深深，花影落在窗边","1,5"]
+        ]
+    },
+
+    {
+        q:"如果把你的性格变成一句话，你更接近哪一句？",
+        options:[
+            ["温柔不是没有原则，而是懂得分寸","0,5"],
+            ["我喜欢自由，也喜欢自己做决定","6,8"],
+            ["认定的事情，我会认真走到底","2,3"],
+            ["生活可以浪漫，但自己也要清醒","7,4"]
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   提取码
+===================================================== */
+
+function checkCode(){
+
+    const input = document.getElementById("codeInput");
+    const error = document.getElementById("error");
+
+    if(input.value === ACCESS_CODE){
+
+        document.getElementById("lockPage").classList.add("hidden");
+        document.getElementById("homePage").classList.remove("hidden");
+
+        error.textContent = "";
+
+    }else{
+
+        error.textContent = "提取码不正确，请重新输入";
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+}
+
+
+/* 回车进入 */
+
+document.getElementById("codeInput").addEventListener("keydown",function(e){
+
+    if(e.key === "Enter"){
+        checkCode();
+    }
+
+});
+
+
+/* =====================================================
+   开始测试
+===================================================== */
+
+function startQuiz(){
+
+    currentQuestion = 0;
+
+    scores = Array(10).fill(0);
+
+    document.getElementById("homePage").classList.add("hidden");
+    document.getElementById("resultPage").classList.add("hidden");
+    document.getElementById("quizPage").classList.remove("hidden");
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   显示题目
+===================================================== */
+
+function showQuestion(){
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionText").textContent = q.q;
+
+    document.getElementById("quizNumber").textContent =
+        String(currentQuestion + 1).padStart(2,"0") + " / 08";
+
+    document.getElementById("progressInner").style.width =
+        ((currentQuestion) / questions.length * 100) + "%";
+
+    const optionsBox = document.getElementById("options");
+
+    optionsBox.innerHTML = "";
+
+    const letters = ["A","B","C","D"];
+
+    q.options.forEach((item,index)=>{
+
+        const button = document.createElement("button");
+
+        button.className = "option";
+
+        button.innerHTML = `
+            <span class="option-mark">${letters[index]}</span>
+            <span class="option-text">${item[0]}</span>
+        `;
+
+        button.onclick = function(){
+
+            chooseAnswer(item[1]);
+
+        };
+
+        optionsBox.appendChild(button);
+
+    });
+
+}
+
+
+/* =====================================================
+   选择答案
+===================================================== */
+
+function chooseAnswer(value){
+
+    const indexes = value.split(",").map(Number);
+
+    /*
+       主倾向 + 次倾向
+       主倾向获得2分
+       次倾向获得1分
+    */
+
+    scores[indexes[0]] += 2;
+    scores[indexes[1]] += 1;
+
+    currentQuestion++;
+
+    if(currentQuestion >= questions.length){
+
+        setTimeout(showResult,180);
+
+    }else{
+
+        setTimeout(showQuestion,180);
+
+    }
+
+}
+
+
+/* =====================================================
+   结果算法
+===================================================== */
+
+function showResult(){
+
+    document.getElementById("quizPage").classList.add("hidden");
+    document.getElementById("resultPage").classList.remove("hidden");
+
+    document.getElementById("progressInner").style.width = "100%";
+
+    /*
+       增加轻微的平衡机制。
+       最高分相同的时候，根据回答结构决定最终结果，
+       避免大量用户集中到同一个结果。
+    */
+
+    let maxScore = Math.max(...scores);
+
+    let candidates = [];
+
+    scores.forEach((score,index)=>{
+
+        if(score === maxScore){
+            candidates.push(index);
+        }
+
+    });
+
+    let winner;
+
+    if(candidates.length === 1){
+
+        winner = candidates[0];
+
+    }else{
+
+        /*
+           平局时使用总回答倾向进行轻微扰动。
+           保证不同选择组合拥有更多结果可能。
+        */
+
+        const total = scores.reduce((a,b)=>a+b,0);
+
+        winner = candidates[total % candidates.length];
+
+    }
+
+    const data = results[winner];
+
+    const page = document.getElementById("resultPage");
+    const head = document.getElementById("resultHead");
+
+    page.className = "page";
+    page.classList.add(data.theme);
+
+    document.getElementById("resultSymbol").textContent = data.symbol;
+    document.getElementById("resultType").textContent = data.type;
+    document.getElementById("resultName").textContent = data.name;
+
+    document.getElementById("resultIntro").textContent = data.intro;
+    document.getElementById("resultText").textContent = data.text;
+    document.getElementById("resultDetail").textContent = data.detail;
+    document.getElementById("resultKeywords").textContent = data.keywords;
+
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
+
+}
+
+
+/* =====================================================
+   再测一次
+===================================================== */
+
+function restartTest(){
+
+    document.getElementById("resultPage").classList.add("hidden");
+
+    document.getElementById("homePage").classList.remove("hidden");
+
+    currentQuestion = 0;
+
+    scores = Array(10).fill(0);
+
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
